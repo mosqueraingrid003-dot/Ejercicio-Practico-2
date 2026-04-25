@@ -1,7 +1,5 @@
 package com.uniajc.controlador;
 
-import java.util.List;
-
 import com.uniajc.modelo.Estudiante;
 import com.uniajc.servicios.EstudianteService;
 import com.uniajc.vista.VistaEstudiante;

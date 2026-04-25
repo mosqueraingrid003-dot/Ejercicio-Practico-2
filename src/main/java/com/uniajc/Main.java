@@ -1,31 +1,41 @@
-package com.uniajc;
-
-import java.sql.Connection;
+package com.uniajc.main;
 
 import com.uniajc.config.ConexionPostgresDatabase;
 import com.uniajc.controlador.ControladorEstudiante;
 import com.uniajc.servicios.EstudianteService;
 import com.uniajc.vista.VistaEstudiante;
 
-// import com.uniajc.controlador.ControladorEstudiante;
-// import com.uniajc.modelo.Estudiante;
-// import com.uniajc.vista.VistaEstudiante;
+import com.uniajc.controlador.ControladorMateria;
+import com.uniajc.servicios.MateriaService;
+import com.uniajc.vista.VistaMateria;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Practica MVC - Sistema academico Uniajc!");
+        System.out.println("Practica MVC - Sistema académico Uniajc!");
 
-        VistaEstudiante vista = new VistaEstudiante();
+        // Conexión a la base de datos (Postgres/MySQL según config.properties)
+        ConexionPostgresDatabase.getConnection();
+
+        // ============================
+        // Bloque Estudiante
+        // ============================
+        VistaEstudiante vistaEstudiante = new VistaEstudiante();
         EstudianteService estudianteService = new EstudianteService();
+        ControladorEstudiante controladorEstudiante = new ControladorEstudiante(vistaEstudiante, estudianteService);
 
-        // Crear el controlador y pasarle la vista y el servicio
-        ControladorEstudiante controlador = new ControladorEstudiante(vista, estudianteService);
+        controladorEstudiante.mostrarTodosLosEstudiantes(); 
+        controladorEstudiante.registrarEstudiante(); 
+        controladorEstudiante.mostrarTodosLosEstudiantes(); 
 
-        controlador.mostrarTodosLosEstudiantes(); // Llamar al método para mostrar todos los estudiantes antes de registrar uno nuevo
+        // ============================
+        // Bloque Materia
+        // ============================
+        VistaMateria vistaMateria = new VistaMateria();
+        MateriaService materiaService = new MateriaService();
+        ControladorMateria controladorMateria = new ControladorMateria();
 
-        controlador.registrarEstudiante(); // Llamar al método para registrar un estudiante
-
-        controlador.mostrarTodosLosEstudiantes(); // Llamar al método para mostrar todos los estudiantes después de registrar uno nuevo
-       
+        // Ejemplo de uso del menú de Materia
+        vistaMateria.menu();
     }
 }
+
